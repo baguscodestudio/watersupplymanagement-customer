@@ -4,6 +4,7 @@ import { ToastContainer } from "react-toastify";
 import "./App.css";
 
 import { Chart, registerables } from "chart.js";
+import UserType from "./type/User";
 Chart.register(...registerables);
 
 const userObj = {
@@ -25,7 +26,7 @@ const userObj = {
 export const UserContext = createContext(userObj);
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [user, setUser] = useState(userObj.user);
 
   return (
     <div className="h-screen flex flex-col">
