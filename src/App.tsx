@@ -5,6 +5,7 @@ import "./App.css";
 
 import { Chart, registerables } from "chart.js";
 import UserType from "./type/User";
+import Home from "./pages/Home";
 Chart.register(...registerables);
 
 const userObj = {
@@ -45,10 +46,8 @@ function App() {
       <Router>
         <UserContext.Provider value={{ user, setUser }}>
           <Routes>
-            {/* <Route path="/" element={<Login />} />
-            <Route element={<ProtectedRoutes />}>
-              <Route path="/dashboard" element={<Dashboard />} />
-            </Route> */}
+            <Route path="/" element={<Home />} />
+
           </Routes>
         </UserContext.Provider>
       </Router>
