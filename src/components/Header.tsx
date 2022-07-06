@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+
+import { UserCircle } from '@styled-icons/boxicons-regular/UserCircle';
 import { Bell } from 'styled-icons/bootstrap';
 import { Logout } from 'styled-icons/heroicons-outline';
 import { UserContext } from '../App';
@@ -32,7 +34,10 @@ const Header = () => {
     <div className="w-full inline-flex h-16 border-b-2 border-black items-center">
       <span className="ml-6 font-bold text-xl">Water Supply Management</span>
       <div className="ml-auto mr-6 flex items-center">
-        <div className="mx-4 text-lg">{user.username}</div>
+        <div className="mx-4 text-lg">
+          <UserCircle size="20" />
+          {user.username}
+        </div>
         <Bell size="24" className="mx-2" />
         <Logout
           size="24"
