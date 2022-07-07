@@ -9,6 +9,7 @@ import UserType from './type/User';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import ProtectedRoutes from './ProtectedRoutes';
+import UpdatePassword from './pages/UpdatePassword';
 Chart.register(...registerables);
 
 const userObj = {
@@ -52,6 +53,7 @@ function App() {
             <Route path="/" element={<Login />} />
             <Route element={<ProtectedRoutes />}>
               <Route path="/dashboard" element={<Home />} />
+              <Route path="/account/password" element={<UpdatePassword />} />
             </Route>
           </Routes>
         </UserContext.Provider>

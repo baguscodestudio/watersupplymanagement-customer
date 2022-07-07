@@ -92,12 +92,21 @@ const Links = [
 const DropDownLink = (data: DropDownLinkType) => {
   const location = useLocation();
 
+  const checkSublink = () => {
+    for (let i = 0; i < data.sublinks.length; i++) {
+      if (data.sublinks[i].path === location.pathname) {
+        return true;
+      }
+    }
+    return false;
+  };
+
   return (
     <Menu as="div" className="border-b-2 border-black text-lg flex flex-col">
       <Menu.Button className="w-full text-left px-4 py-2">
         {data.icon} {data.name}
       </Menu.Button>
-      <Menu.Items>
+      <Menu.Items static={checkSublink()}>
         {data.sublinks.map((link, index) => (
           <Menu.Item
             key={index}

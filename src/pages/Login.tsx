@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { UserContext } from '../App';
@@ -33,6 +33,15 @@ const Login = () => {
         toast(err.response.data.message);
       });
   };
+
+  useEffect(() => {
+    if (
+      localStorage.getItem('accessToken') &&
+      localStorage.getItem('userData')
+    ) {
+      navigate('/dashboard');
+    }
+  }, []);
 
   return (
     <form
