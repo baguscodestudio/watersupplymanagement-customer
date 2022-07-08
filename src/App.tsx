@@ -10,6 +10,8 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import ProtectedRoutes from './ProtectedRoutes';
 import UpdatePassword from './pages/UpdatePassword';
+import WaterUsageCurrent from './pages/WaterUsageCurrent';
+import 'chartjs-adapter-moment';
 Chart.register(...registerables);
 
 const userObj = {
@@ -53,6 +55,10 @@ function App() {
             <Route path="/" element={<Login />} />
             <Route element={<ProtectedRoutes />}>
               <Route path="/dashboard" element={<Home />} />
+              <Route
+                path="/waterusage/current"
+                element={<WaterUsageCurrent />}
+              />
               <Route path="/account/password" element={<UpdatePassword />} />
             </Route>
           </Routes>

@@ -38,7 +38,7 @@ const Links = [
         icon: <CircleFill size="24" />,
       },
       {
-        path: '/waterusage/current',
+        path: '/waterusage/past',
         name: 'Past Water Usage',
         icon: <RestartAlt size="24" />,
       },

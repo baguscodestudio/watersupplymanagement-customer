@@ -9,32 +9,19 @@ const ProtectedRoutes = () => {
   const [loading, setLoading] = useState(true);
   const { setUser } = useContext(UserContext);
 
-  const useAuth = async () => {
-    await axios
-      .get('http://localhost:5000/api/TestAuthorization', {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-        },
-      })
-      .then((response) => {
-        if (response.status === 200) {
-          setAccess(true);
-          setLoading(false);
-          setUser(JSON.parse(localStorage.getItem('userData')!) as UserType);
-        } else {
-          localStorage.removeItem('accessToken');
-          localStorage.removeItem('userData');
-          setAccess(false);
-          setLoading(false);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('userData');
-        setAccess(false);
-        setLoading(false);
-      });
+  const useAuth = () => {
+    let token = localStorage.getItem('accessToken');
+    let userData = localStorage.getItem('userData');
+    if (token && userData) {
+      setAccess(true);
+      setLoading(false);
+      setUser(JSON.parse(localStorage.getItem('userData')!) as UserType);
+    } else {
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('userData');
+      setAccess(false);
+      setLoading(false);
+    }
   };
   useEffect(() => {
     useAuth();
