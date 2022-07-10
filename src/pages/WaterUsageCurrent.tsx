@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { UserContext } from '../App';
 import Header from '../components/Header';
@@ -7,7 +7,6 @@ import NavTab from '../components/NavTab';
 import WaterUsageType from '../type/WaterUsage';
 import { Chart } from 'react-chartjs-2';
 import moment from 'moment';
-import SensorDataType from '../type/SensorData';
 
 const WaterUsageCurrent = () => {
   const { user } = useContext(UserContext);
@@ -153,7 +152,7 @@ const WaterUsageCurrent = () => {
               </div>
             </div>
           </div>
-          <div className="w-2/3">
+          <div className="w-2/3 pl-12">
             <Chart
               type="line"
               className="w-full h-auto"

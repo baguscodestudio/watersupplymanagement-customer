@@ -49,12 +49,12 @@ const Links = [
     icon: <CreditCard size="24" />,
     sublinks: [
       {
-        path: '/payment',
+        path: '/bill',
         name: 'View Payment',
         icon: <CircleFill size="24" />,
       },
       {
-        path: '/payment/pay',
+        path: '/bill/pay',
         name: 'Pay bill',
         icon: <CreditCard size="24" />,
       },

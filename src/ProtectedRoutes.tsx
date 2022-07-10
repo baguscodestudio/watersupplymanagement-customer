@@ -23,6 +23,7 @@ const ProtectedRoutes = () => {
       setLoading(false);
     }
   };
+
   useEffect(() => {
     useAuth();
   }, []);
