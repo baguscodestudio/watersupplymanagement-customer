@@ -104,7 +104,7 @@ const WaterUsageCurrent = () => {
       });
     axios
       .get(
-        `http://localhost:5000/api/WaterRate/Year/${moment().year()}/Month/${moment().month()}`,
+        `http://localhost:5000/api/WaterRate/${moment().year()}/${moment().month()}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('accessToken')}`,

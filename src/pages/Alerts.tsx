@@ -40,7 +40,7 @@ const Alerts = () => {
         },
       })
       .then((response) => {
-        setAlerts(response.data);
+        setAlerts(response.data.result);
       })
       .catch((err) => {
         console.log(err);

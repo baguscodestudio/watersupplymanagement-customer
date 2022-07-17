@@ -28,7 +28,7 @@ const Reports = () => {
         },
       })
       .then((response) => {
-        setReports(response.data);
+        setReports(response.data.result);
       })
       .catch((err) => {
         console.log(err);
