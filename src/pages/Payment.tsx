@@ -7,6 +7,7 @@ import BillType from '../type/Bill';
 import * as dropin from 'braintree-web-drop-in';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { formatter } from '../utils';
 
 type LocationState = {
   bill: BillType;
@@ -121,11 +122,15 @@ const Payment = () => {
               <div className="px-4 py-4 flex flex-col h-5/6">
                 <div className="inline-flex w-full justify-between">
                   <span>Water Usage:</span>
-                  <span>${bill && bill.rate * bill.totalUsage}</span>
+                  <span>{bill && formatter.format(bill.totalUsage)}L</span>
                 </div>
                 <div className="inline-flex w-full justify-between mt-auto">
                   <span className="font-bold">Total:</span>
-                  <span>${bill && bill.rate * bill.totalUsage}</span>
+                  <span>
+                    $
+                    {bill &&
+                      formatter.format((bill.rate * bill.totalUsage) / 1000)}
+                  </span>
                 </div>
               </div>
             </div>

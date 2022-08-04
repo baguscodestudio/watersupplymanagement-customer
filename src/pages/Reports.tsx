@@ -8,10 +8,12 @@ import ReportType from '../type/Report';
 
 import { ChevronThinLeft } from '@styled-icons/entypo/ChevronThinLeft';
 import { ChevronThinRight } from '@styled-icons/entypo/ChevronThinRight';
+import { useNavigate } from 'react-router-dom';
 
 const Reports = () => {
   const [reports, setReports] = useState<ReportType[]>([]);
   const [page, setPage] = useState(0);
+  const navigate = useNavigate();
 
   const rightPage = () => {
     if (page < Math.ceil(reports.length / 10)) setPage(page + 1);
@@ -56,7 +58,11 @@ const Reports = () => {
                 {reports
                   .slice(page * 10, page * 10 + 10)
                   .map((report, index) => (
-                    <tr key={index} className="border-y-2 border-black">
+                    <tr
+                      key={index}
+                      className="border-y-2 border-black hover:text-white hover:bg-gray-500 hover:cursor-pointer"
+                      onClick={() => navigate(`/report/${report.reportId}`)}
+                    >
                       <td className="border-r-2 border-black text-center">
                         {index + 1}
                       </td>

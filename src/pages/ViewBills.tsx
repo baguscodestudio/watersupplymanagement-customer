@@ -10,6 +10,7 @@ import {
 import Header from '../components/Header';
 import NavTab from '../components/NavTab';
 import BillType from '../type/Bill';
+import { formatter } from '../utils';
 
 const ViewBills = () => {
   const [bills, setBills] = useState<BillType[]>([]);
@@ -17,7 +18,7 @@ const ViewBills = () => {
   const navigate = useNavigate();
 
   const rightPage = () => {
-    if (page < Math.ceil(bills.length / 10)) setPage(page + 1);
+    if (page + 1 < Math.ceil(bills.length / 10)) setPage(page + 1);
   };
   const leftPage = () => {
     if (page > 0) setPage(page - 1);
@@ -47,13 +48,14 @@ const ViewBills = () => {
       <div className="w-full h-full flex">
         <NavTab />
         <div className="w-4/5 h-full px-8 py-10 flex flex-col">
-          <table className="border-2 border-black rounded-xl m-auto w-3/4">
+          <table className="border-2 border-black rounded-xl mx-auto mt-4 w-3/4">
             <thead>
               <tr className="border-2 border-black">
                 <th className="w-[10%]">Deadline</th>
                 <th className="w-[10%]">Amount</th>
                 <th>Title</th>
                 <th>Status</th>
+                <th>View</th>
               </tr>
             </thead>
             <tbody>
@@ -63,7 +65,7 @@ const ViewBills = () => {
                     {moment(bill.deadline).format('DD/MM/YYYY')}
                   </td>
                   <td className="border-2 border-black py-1 px-4 text-center">
-                    ${bill.rate * bill.totalUsage}
+                    ${formatter.format((bill.rate * bill.totalUsage) / 1000)}
                   </td>
                   <td className="border-2 border-black py-1 px-4">
                     {bill.title}
@@ -81,6 +83,14 @@ const ViewBills = () => {
                         Unpaid
                       </button>
                     )}
+                  </td>
+                  <td className="text-center">
+                    <button
+                      onClick={() => navigate(`/bill/${bill.billId}`)}
+                      className="w-1/2 px-4 py-1 rounded-xl bg-gray-500 text-white hover:bg-gray-300 transition-colors"
+                    >
+                      View
+                    </button>
                   </td>
                 </tr>
               ))}

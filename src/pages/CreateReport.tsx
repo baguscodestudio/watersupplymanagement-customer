@@ -23,7 +23,7 @@ const CreateReport = () => {
           {
             title: title,
             description: desc,
-            status: 'active',
+            status: 'Active',
             customerId: user.userId,
           },
           {

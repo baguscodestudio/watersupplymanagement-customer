@@ -76,18 +76,18 @@ const UpdatePassword = () => {
             </div>
           </div>
           <div className="inline-flex mt-16">
-            <button
-              type="submit"
-              className="px-4 py-1 text-lg border-black border-2 rounded-lg mr-16"
-            >
-              Update
-            </button>
             <Link
               to="/dashboard"
-              className="px-4 py-1 text-lg border-black border-2 rounded-lg"
+              className="px-4 py-1 text-lg border-black border-2 rounded-lg mr-16"
             >
               Cancel
             </Link>
+            <button
+              type="submit"
+              className="px-4 py-1 text-lg border-black border-2 rounded-lg"
+            >
+              Update
+            </button>
           </div>
         </form>
       </div>

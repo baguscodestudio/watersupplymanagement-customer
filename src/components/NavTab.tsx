@@ -22,6 +22,11 @@ const Links = [
     icon: <UserCircle size="24" />,
     sublinks: [
       {
+        path: '/account',
+        name: 'Profile',
+        icon: <UserCircle size="24" />,
+      },
+      {
         path: '/account/password',
         name: 'Update Password',
         icon: <UserCircle size="24" />,
@@ -53,11 +58,6 @@ const Links = [
         name: 'View Payment',
         icon: <CircleFill size="24" />,
       },
-      {
-        path: '/bill/pay',
-        name: 'Pay bill',
-        icon: <CreditCard size="24" />,
-      },
     ],
   },
   {
@@ -66,7 +66,7 @@ const Links = [
     sublinks: [
       {
         path: '/report',
-        name: 'View report',
+        name: 'View Reports',
         icon: <CircleFill size="24" />,
       },
       {

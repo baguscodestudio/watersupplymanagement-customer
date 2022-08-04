@@ -7,6 +7,7 @@ import NavTab from '../components/NavTab';
 import AlertType from '../type/Alert';
 import { Dialog, Transition } from '@headlessui/react';
 
+import { Search } from '@styled-icons/boxicons-regular/Search';
 import { ChevronThinLeft } from '@styled-icons/entypo/ChevronThinLeft';
 import { ChevronThinRight } from '@styled-icons/entypo/ChevronThinRight';
 
@@ -15,9 +16,54 @@ const Alerts = () => {
   const [page, setPage] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   const [alert, setAlert] = useState<AlertType>();
+  const [search, setSearch] = useState('');
+  const [length, setLength] = useState(1);
+
+  const fetchAnnouncements = () => {
+    axios
+      .get('http://localhost:5000/api/BroadcastAlert', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+        params: {
+          page: page + 1,
+        },
+      })
+      .then((response) => {
+        setAlerts(response.data.result);
+        setLength(response.data.metadata.count);
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error('An error occured while fetching announcements!!');
+      });
+  };
+
+  const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (search !== '') {
+      axios
+        .get('http://localhost:5000/api/BroadcastAlert/Search', {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+          params: {
+            keyword: search,
+          },
+        })
+        .then((response) => {
+          setAlerts(response.data.result);
+          setLength(response.data.metadata.count);
+        })
+        .catch((err) => {
+          console.log(err);
+          toast.error('An error occured while fetching announcements!!');
+        });
+    } else fetchAnnouncements();
+  };
 
   const rightPage = () => {
-    if (page < Math.ceil(alerts.length / 10)) setPage(page + 1);
+    if (page < Math.ceil(length / 10)) setPage(page + 1);
   };
   const leftPage = () => {
     if (page > 0) setPage(page - 1);
@@ -33,20 +79,8 @@ const Alerts = () => {
   };
 
   useEffect(() => {
-    axios
-      .get('http://localhost:5000/api/BroadcastAlert', {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-        },
-      })
-      .then((response) => {
-        setAlerts(response.data.result);
-      })
-      .catch((err) => {
-        console.log(err);
-        toast.error('An error occured while fetching announcements!!');
-      });
-  }, []);
+    fetchAnnouncements();
+  }, [page]);
 
   return (
     <>
@@ -55,6 +89,20 @@ const Alerts = () => {
         <div className="w-full h-full flex">
           <NavTab />
           <div className="w-4/5 h-full px-8 py-10 flex flex-col">
+            <form
+              onSubmit={(event) => handleSearch(event)}
+              className="rounded-lg ring-1 ring-gray-500 w-full h-12 mb-8 inline-flex items-center px-6"
+            >
+              <button type="submit" className="mr-4">
+                <Search size="24" />
+              </button>
+              <input
+                placeholder="Search for announcement"
+                onChange={(event) => setSearch(event.currentTarget.value)}
+                id="search"
+                className="outline-none text-lg w-full"
+              />
+            </form>
             <div className="h-[85%] border-black rounded-xl border-2 overflow-clip">
               <table className="w-full">
                 <thead>
@@ -65,28 +113,24 @@ const Alerts = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {alerts
-                    .slice(page * 10, page * 10 + 10)
-                    .map((alert, index) => (
-                      <tr key={index} className="border-y-2 border-black">
-                        <td className="border-r-2 border-black px-4">
-                          {moment(alert.createdAt).format(
-                            'HH:mm:ss DD/MM/YYYY'
-                          )}
-                        </td>
-                        <td className="border-x-2 border-black px-4">
-                          {alert.alertTitle}
-                        </td>
-                        <td className="text-center border-l-2 border-black">
-                          <button
-                            onClick={() => handleOpen(alert)}
-                            className="mx-auto w-1/2 py-1 rounded-lg bg-gray-400 text-white"
-                          >
-                            View
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
+                  {alerts.map((alert, index) => (
+                    <tr key={index} className="border-y-2 border-black">
+                      <td className="border-r-2 border-black px-4">
+                        {moment(alert.createdAt).format('HH:mm:ss DD/MM/YYYY')}
+                      </td>
+                      <td className="border-x-2 border-black px-4">
+                        {alert.alertTitle}
+                      </td>
+                      <td className="text-center border-l-2 border-black">
+                        <button
+                          onClick={() => handleOpen(alert)}
+                          className="mx-auto w-1/2 py-1 rounded-lg bg-gray-400 text-white"
+                        >
+                          View
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>

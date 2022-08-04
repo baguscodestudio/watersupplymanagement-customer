@@ -6,6 +6,7 @@ import { UserCircle } from '@styled-icons/boxicons-regular/UserCircle';
 import { Bell } from 'styled-icons/bootstrap';
 import { Logout } from 'styled-icons/heroicons-outline';
 import { UserContext } from '../App';
+import UserType from '../type/User';
 
 const Header = () => {
   const { user, setUser } = useContext(UserContext);
@@ -14,18 +15,7 @@ const Header = () => {
   const handleLogout = () => {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('userData');
-    setUser({
-      userId: '',
-      username: '',
-      password: '',
-      createdAt: '',
-      fullName: '',
-      gender: 'M',
-      email: '',
-      phone: '',
-      type: '',
-      lastMaintenance: '',
-    });
+    setUser({} as UserType);
     toast('Successfully logged out!');
     navigate('/');
   };
@@ -38,7 +28,6 @@ const Header = () => {
           <UserCircle size="20" />
           {user.username}
         </div>
-        <Bell size="24" className="mx-2" />
         <Logout
           size="24"
           className="mx-2 hover:cursor-pointer hover:text-red-700"

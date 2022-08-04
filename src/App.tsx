@@ -19,21 +19,13 @@ import Payment from './pages/Payment';
 import CreateReport from './pages/CreateReport';
 import Reports from './pages/Reports';
 import Alerts from './pages/Alerts';
+import ViewReport from './pages/ViewReport';
+import ViewBill from './pages/ViewBill';
+import Profile from './pages/Profile';
 Chart.register(...registerables);
 
 const userObj = {
-  user: {
-    userId: '',
-    username: '',
-    password: '',
-    createdAt: '',
-    fullName: '',
-    gender: 'M',
-    email: '',
-    phone: '',
-    type: '',
-    lastMaintenance: '',
-  },
+  user: {} as UserType,
   setUser: (user: UserType) => {},
 };
 
@@ -72,10 +64,13 @@ function App() {
                 element={<CompareWaterUsage />}
               />
               <Route path="/report" element={<Reports />} />
+              <Route path="/report/:id" element={<ViewReport />} />
               <Route path="/report/create" element={<CreateReport />} />
               <Route path="/bill" element={<ViewBills />} />
+              <Route path="/bill/:id" element={<ViewBill />} />
               <Route path="/bill/pay" element={<Payment />} />
               <Route path="/alerts" element={<Alerts />} />
+              <Route path="/account" element={<Profile />} />
               <Route path="/account/password" element={<UpdatePassword />} />
             </Route>
           </Routes>
