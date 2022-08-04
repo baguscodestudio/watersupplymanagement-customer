@@ -56,8 +56,6 @@ const PastWaterUsage = () => {
     }
   };
 
-  console.log('Rerendering');
-
   useEffect(() => {
     axios
       .get(`http://localhost:5000/api/WaterUsage/MyInfo`, {

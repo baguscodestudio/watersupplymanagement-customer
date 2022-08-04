@@ -1,6 +1,6 @@
 import moment from 'moment';
 import React from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Chart } from 'react-chartjs-2';
 import Header from '../components/Header';
 import NavTab from '../components/NavTab';
@@ -37,7 +37,10 @@ const CompareWaterUsage = () => {
     firstData.data.map((sensordata, i) => {
       if (dataValue[moment(sensordata.timestamp).format('YYYYMMDD')]) {
         dataValue[moment(sensordata.timestamp).format('YYYYMMDD')].data.push({
-          x: moment(sensordata.timestamp),
+          x: moment(
+            moment(sensordata.timestamp).format('HH:mm:ss'),
+            'HH:mm:ss'
+          ),
           y: sensordata.value,
         });
       } else {
@@ -48,7 +51,10 @@ const CompareWaterUsage = () => {
           label: moment(sensordata.timestamp).format('DD/MM/YYYY'),
           data: [
             {
-              x: moment(sensordata.timestamp),
+              x: moment(
+                moment(sensordata.timestamp).format('HH:mm:ss'),
+                'HH:mm:ss'
+              ),
               y: sensordata.value,
             },
           ],
@@ -59,9 +65,13 @@ const CompareWaterUsage = () => {
     });
 
     secondData.data.map((sensordata, i) => {
+      console.log(sensordata.timestamp);
       if (dataValue[moment(sensordata.timestamp).format('YYYYMMDD')]) {
         dataValue[moment(sensordata.timestamp).format('YYYYMMDD')].data.push({
-          x: moment(sensordata.timestamp),
+          x: moment(
+            moment(sensordata.timestamp).format('HH:mm:ss'),
+            'HH:mm:ss'
+          ),
           y: sensordata.value,
         });
       } else {
@@ -72,7 +82,10 @@ const CompareWaterUsage = () => {
           label: moment(sensordata.timestamp).format('DD/MM/YYYY'),
           data: [
             {
-              x: moment(sensordata.timestamp),
+              x: moment(
+                moment(sensordata.timestamp).format('HH:mm:ss'),
+                'HH:mm:ss'
+              ),
               y: sensordata.value,
             },
           ],
@@ -82,6 +95,40 @@ const CompareWaterUsage = () => {
       }
     });
   }
+
+  Object.keys(dataValue).map((key) => {
+    let set = dataValue[key];
+    let total = 0;
+    let count = 0;
+    let currentDate: string;
+    let calculated_data: { x: string; y: number }[] = [];
+    set.data.map((data: { x: string; y: number }) => {
+      if (
+        !currentDate ||
+        currentDate !== moment(data.x).format('YYYY-MM-DD HH')
+      ) {
+        if (currentDate) {
+          calculated_data.push({
+            x: currentDate,
+            y: total / count,
+          });
+        }
+        currentDate = moment(data.x).format('YYYY-MM-DD HH');
+        total = 0;
+        count = 0;
+        count++;
+        total += data.y;
+      } else if (currentDate === moment(data.x).format('YYYY-MM-DD HH')) {
+        total += data.y;
+        count++;
+      }
+    });
+    calculated_data.push({
+      x: currentDate!,
+      y: total / count,
+    });
+    set.data = calculated_data;
+  });
 
   const data = {
     labels: [],
@@ -93,40 +140,42 @@ const CompareWaterUsage = () => {
       <Header />
       <div className="w-full h-full flex">
         <NavTab />
-        <div className="w-4/5 h-full px-8 py-10 flex items-center">
-          <Chart
-            type="line"
-            className="w-full"
-            data={data}
-            options={{
-              responsive: true,
-              plugins: {
-                legend: {
-                  position: 'top' as const,
-                },
-                title: {
-                  display: true,
-                  text: `Water Usage Comparison`,
-                },
-              },
-              scales: {
-                x: {
-                  type: 'time',
-                  time: {
-                    displayFormats: {
-                      hour: 'HH:mm',
-                    },
-                    tooltipFormat: 'DD MMM HH:mm',
+        <div className="w-4/5 h-full px-8 py-10 flex flex-col items-center">
+          <div className="h-4/5 w-5/6 mx-auto">
+            <Chart
+              type="line"
+              data={data}
+              options={{
+                responsive: true,
+                plugins: {
+                  legend: {
+                    position: 'bottom' as const,
+                  },
+                  title: {
+                    display: true,
+                    text: 'Water Usage Comparison',
                   },
                 },
-              },
-            }}
-          />
+                scales: {
+                  x: {
+                    type: 'time',
+                    time: {
+                      unit: 'hour',
+                      tooltipFormat: 'DD MMM YYYY',
+                    },
+                  },
+                },
+              }}
+            />
+          </div>
 
-          <div className="inline-flex w-full">
-            <button className="mt-4 mx-auto px-4 py-1 rounded-lg border-2 border-black">
+          <div className="inline-flex w-full mt-auto mb-4">
+            <Link
+              to="/waterusage/past"
+              className="mt-4 mx-auto px-4 py-1 rounded-lg border-2 border-black"
+            >
               Back
-            </button>
+            </Link>
           </div>
         </div>
       </div>

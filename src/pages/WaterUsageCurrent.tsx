@@ -25,14 +25,15 @@ const WaterUsageCurrent = () => {
     };
   } = {};
 
-  waterUsage.map((waterUsage, index) => {
-    waterUsage.data.map((sensordata, i) => {
+  const labels: string[] = [];
+  waterUsage.map((waterPumpUsage, index) => {
+    waterPumpUsage.data.map((sensordata, i) => {
       if (
         moment(sensordata.timestamp).format('YYYYMMDD') ===
         moment().format('YYYYMMDD')
       ) {
-        if (dataValue[waterUsage.customerId]) {
-          dataValue[waterUsage.customerId].data.push({
+        if (dataValue[waterPumpUsage.customerId]) {
+          dataValue[waterPumpUsage.customerId].data.push({
             x: moment(sensordata.timestamp),
             y: sensordata.value,
           });
@@ -40,7 +41,7 @@ const WaterUsageCurrent = () => {
           let color = `rgb(${Math.floor(Math.random() * 255)},${Math.floor(
             Math.random() * 255
           )},${Math.floor(Math.random() * 255)})`;
-          dataValue[waterUsage.customerId] = {
+          dataValue[waterPumpUsage.customerId] = {
             label: 'Your Usage',
             data: [
               {
@@ -56,8 +57,42 @@ const WaterUsageCurrent = () => {
     });
   });
 
+  Object.keys(dataValue).map((key) => {
+    let set = dataValue[key];
+    let total = 0;
+    let count = 0;
+    let currentDate: string;
+    let calculated_data: { x: string; y: number }[] = [];
+    set.data.map((data: { x: string; y: number }) => {
+      if (
+        !currentDate ||
+        currentDate !== moment(data.x).format('YYYY-MM-DD HH')
+      ) {
+        if (currentDate) {
+          calculated_data.push({
+            x: currentDate,
+            y: total / count,
+          });
+        }
+        currentDate = moment(data.x).format('YYYY-MM-DD HH');
+        total = 0;
+        count = 0;
+        count++;
+        total += data.y;
+      } else if (currentDate === moment(data.x).format('YYYY-MM-DD HH')) {
+        total += data.y;
+        count++;
+      }
+    });
+    calculated_data.push({
+      x: currentDate!,
+      y: total / count,
+    });
+    set.data = calculated_data;
+  });
+
   const data = {
-    labels: [],
+    labels: labels,
     datasets: Object.keys(dataValue).map((key) => dataValue[key]),
   };
 
@@ -161,21 +196,19 @@ const WaterUsageCurrent = () => {
                 responsive: true,
                 plugins: {
                   legend: {
-                    position: 'top' as const,
+                    position: 'bottom' as const,
                   },
                   title: {
                     display: true,
-                    text: `Water Usage ${moment().format('DD MMM YYYY')}`,
+                    text: 'Water Usage',
                   },
                 },
                 scales: {
                   x: {
                     type: 'time',
                     time: {
-                      displayFormats: {
-                        hour: 'HH:mm',
-                      },
-                      tooltipFormat: 'DD MMM HH:mm',
+                      unit: 'hour',
+                      tooltipFormat: 'DD MMM YYYY',
                     },
                   },
                 },
