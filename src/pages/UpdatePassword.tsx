@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { UserContext } from '../App';
 import Header from '../components/Header';
@@ -10,6 +10,7 @@ const UpdatePassword = () => {
   const { user, setUser } = useContext(UserContext);
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -32,6 +33,7 @@ const UpdatePassword = () => {
         )
         .then((response) => {
           toast('Successfully updated password!');
+          navigate('/dashboard');
         })
         .catch((err) => {
           console.log(err);

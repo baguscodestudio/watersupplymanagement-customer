@@ -73,7 +73,7 @@ const Reports = () => {
                         {report.title}
                       </td>
                       <td className="text-center border-l-2 border-black">
-                        {report.status == 'active' ? (
+                        {report.status == 'Active' ? (
                           <div className="mx-auto w-1/2 py-1 rounded-lg bg-amber-300">
                             Active
                           </div>
