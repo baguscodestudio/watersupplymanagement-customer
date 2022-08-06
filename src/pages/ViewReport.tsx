@@ -89,7 +89,7 @@ const ViewReport = () => {
                 </div>
                 <div className="flex flex-col w-1/3 mb-4 items-center">
                   <span>Status</span>
-                  {report?.status == 'active' ? (
+                  {report?.status == 'Active' ? (
                     <div className="mx-auto w-1/2 py-1 rounded-lg bg-amber-300 text-center">
                       Active
                     </div>
