@@ -102,7 +102,6 @@ const CompareWaterUsage = () => {
   Object.keys(dataValue).map((key) => {
     let set = dataValue[key];
     let total = 0;
-    let count = 0;
     let currentDate: string;
     let calculated_data: { x: string; y: number }[] = [];
     set.data.map((data: { x: string; y: number }) => {
@@ -113,22 +112,19 @@ const CompareWaterUsage = () => {
         if (currentDate) {
           calculated_data.push({
             x: currentDate,
-            y: total / count,
+            y: total,
           });
         }
         currentDate = moment(data.x).format('YYYY-MM-DD HH');
         total = 0;
-        count = 0;
-        count++;
         total += data.y;
       } else if (currentDate === moment(data.x).format('YYYY-MM-DD HH')) {
         total += data.y;
-        count++;
       }
     });
     calculated_data.push({
       x: currentDate!,
-      y: total / count,
+      y: total,
     });
     set.data = calculated_data;
   });
