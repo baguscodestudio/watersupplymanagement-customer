@@ -288,7 +288,7 @@ const WaterUsage = () => {
               />
             </div>
             <div className="w-1/5 inline-flex items-center my-2">
-              <span className="font-semibold">Total Cost: ${getTotal()}</span>
+              <span className="font-semibold">Total Usage: {getTotal()}L</span>
             </div>
           </div>
         </div>

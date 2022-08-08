@@ -32,7 +32,7 @@ const CompareWaterUsage = () => {
   } = {};
 
   if (!firstData || !secondData) {
-    navigate('/waterusage/past');
+    navigate('/waterusage/compare');
   } else {
     firstData.data.map((sensordata, i) => {
       if (dataValue[moment(sensordata.timestamp).utc().format('YYYYMMDD')]) {
@@ -170,7 +170,7 @@ const CompareWaterUsage = () => {
 
           <div className="inline-flex w-full mt-auto mb-4">
             <Link
-              to="/waterusage/past"
+              to="/waterusage/compare"
               className="mt-4 mx-auto px-4 py-1 rounded-lg border-2 border-black"
             >
               Back

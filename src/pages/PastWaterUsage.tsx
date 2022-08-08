@@ -45,7 +45,7 @@ const PastWaterUsage = () => {
 
   const handleDetail = () => {
     if (firstData && secondData && firstData !== secondData) {
-      navigate('/waterusage/compare', {
+      navigate('/waterusage/compare/detail', {
         state: {
           firstData: firstData,
           secondData: secondData,

@@ -62,7 +62,7 @@ function App() {
               <Route path="/waterusage/past" element={<WaterUsage />} />
               <Route path="/waterusage/compare" element={<PastWaterUsage />} />
               <Route
-                path="/waterusage/compare"
+                path="/waterusage/compare/detail"
                 element={<CompareWaterUsage />}
               />
               <Route path="/report" element={<Reports />} />

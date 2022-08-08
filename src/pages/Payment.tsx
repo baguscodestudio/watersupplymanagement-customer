@@ -125,6 +125,12 @@ const Payment = () => {
                   <span>{bill && formatter.format(bill.totalUsage)}L</span>
                 </div>
                 <div className="inline-flex w-full justify-between mt-auto">
+                  <span className="font-semibold">Water Rate:</span>
+                  <span>
+                    ${bill && bill.rate}/m<sup>3</sup>
+                  </span>
+                </div>
+                <div className="inline-flex w-full justify-between mt-2">
                   <span className="font-bold">Total:</span>
                   <span>
                     $

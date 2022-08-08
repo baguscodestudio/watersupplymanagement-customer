@@ -82,6 +82,12 @@ const ViewBill = () => {
                 </>
               )}
               <div className="inline-flex w-full justify-between mt-auto">
+                <span className="font-bold">Water Rate:</span>
+                <span>
+                  ${bill?.rate}/m<sup>3</sup>
+                </span>
+              </div>
+              <div className="inline-flex w-full justify-between mt-2">
                 <span className="font-bold">Total:</span>
                 <span>
                   $
