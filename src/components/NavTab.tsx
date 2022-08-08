@@ -47,6 +47,11 @@ const Links = [
         name: 'Past Water Usage',
         icon: <RestartAlt size="24" />,
       },
+      {
+        path: '/waterusage/compare',
+        name: 'Compare Water Usage',
+        icon: <RestartAlt size="24" />,
+      },
     ],
   },
   {

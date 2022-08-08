@@ -22,6 +22,7 @@ import Alerts from './pages/Alerts';
 import ViewReport from './pages/ViewReport';
 import ViewBill from './pages/ViewBill';
 import Profile from './pages/Profile';
+import WaterUsage from './pages/WaterUsage';
 Chart.register(...registerables);
 
 const userObj = {
@@ -58,7 +59,8 @@ function App() {
                 path="/waterusage/current"
                 element={<WaterUsageCurrent />}
               />
-              <Route path="/waterusage/past" element={<PastWaterUsage />} />
+              <Route path="/waterusage/past" element={<WaterUsage />} />
+              <Route path="/waterusage/compare" element={<PastWaterUsage />} />
               <Route
                 path="/waterusage/compare"
                 element={<CompareWaterUsage />}
