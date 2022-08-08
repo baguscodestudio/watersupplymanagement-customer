@@ -16,9 +16,9 @@ import {
 import { useNavigate } from 'react-router-dom';
 
 const PastWaterUsage = () => {
-  const [firstData, setFirst] = useState(-1);
-  const [secondData, setSecond] = useState(-1);
-  const [selected, setSelected] = useState(-1);
+  const [firstData, setFirst] = useState<WaterUsageType>();
+  const [secondData, setSecond] = useState<WaterUsageType>();
+  const [selected, setSelected] = useState<WaterUsageType>();
   const [page, setPage] = useState(0);
   const [waterUsage, setWaterUsage] = useState<WaterUsageType[]>([]);
   const navigate = useNavigate();
@@ -44,11 +44,11 @@ const PastWaterUsage = () => {
   };
 
   const handleDetail = () => {
-    if (firstData !== -1 && secondData !== -1 && firstData !== secondData) {
+    if (firstData && secondData && firstData !== secondData) {
       navigate('/waterusage/compare', {
         state: {
-          firstData: waterUsage[firstData],
-          secondData: waterUsage[secondData],
+          firstData: firstData,
+          secondData: secondData,
         },
       });
     } else {
@@ -83,10 +83,6 @@ const PastWaterUsage = () => {
         <NavTab />
         <div className="w-4/5 h-full px-8 py-10 flex">
           <div className="w-1/3 flex flex-col mb-auto">
-            <div className="w-full py-1 border-black border-2 rounded-lg mb-8 inline-flex px-4 items-center">
-              <input className="w-full h-full outline-none" />
-              <Search size="16" className="ml-auto" />
-            </div>
             <table className="w-full justify-between border-black border-[2px] rounded-lg border-collapse">
               <thead>
                 <tr className="border-[2px] border-black">
@@ -103,9 +99,10 @@ const PastWaterUsage = () => {
                   .map((waterUsage, index) => (
                     <tr
                       key={index}
-                      onClick={() => setSelected(index)}
+                      onClick={() => setSelected(waterUsage)}
                       className={`hover:bg-gray-700 hover:text-white hover:cursor-pointer transition-colors text-center ${
-                        selected == index && 'bg-gray-700 text-white'
+                        selected?.waterUsageId == waterUsage.waterUsageId &&
+                        'bg-gray-700 text-white'
                       }`}
                     >
                       <td className="border-r-[2px] border-black">
@@ -152,13 +149,13 @@ const PastWaterUsage = () => {
           <div className="w-2/3 pl-8 flex flex-col">
             <div className="inline-flex w-full justify-around">
               <div className="w-[40%] h-64 border-2 border-black rounded-lg flex flex-col items-center">
-                {firstData !== -1 && (
+                {firstData && (
                   <>
                     <span className="font-bold mt-12">
-                      {moment(waterUsage[firstData].date).format('DD/MM/YYYY')}
+                      {moment(firstData.date).format('DD/MM/YYYY')}
                     </span>
                     <span className="text-4xl">
-                      {getTotal(waterUsage[firstData].data)}L
+                      {getTotal(firstData.data)}L
                     </span>
                   </>
                 )}
@@ -170,13 +167,13 @@ const PastWaterUsage = () => {
                 </button>
               </div>
               <div className="w-[40%] h-64 border-2 border-black rounded-lg flex flex-col items-center">
-                {secondData !== -1 && (
+                {secondData && (
                   <>
                     <span className="font-bold mt-12">
-                      {moment(waterUsage[secondData].date).format('DD/MM/YYYY')}
+                      {moment(secondData.date).format('DD/MM/YYYY')}
                     </span>
                     <span className="text-4xl">
-                      {getTotal(waterUsage[secondData].data)}L
+                      {getTotal(secondData.data)}L
                     </span>
                   </>
                 )}

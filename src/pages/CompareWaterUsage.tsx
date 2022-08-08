@@ -35,26 +35,28 @@ const CompareWaterUsage = () => {
     navigate('/waterusage/past');
   } else {
     firstData.data.map((sensordata, i) => {
-      if (dataValue[moment(sensordata.timestamp).format('YYYYMMDD')]) {
-        dataValue[moment(sensordata.timestamp).format('YYYYMMDD')].data.push({
+      if (dataValue[moment(sensordata.timestamp).utc().format('YYYYMMDD')]) {
+        dataValue[
+          moment(sensordata.timestamp).utc().format('YYYYMMDD')
+        ].data.push({
           x: moment(
-            moment(sensordata.timestamp).format('HH:mm:ss'),
+            moment(sensordata.timestamp).utc().format('HH:mm:ss'),
             'HH:mm:ss'
-          ),
+          ).add(8, 'hour'),
           y: sensordata.value,
         });
       } else {
         let color = `rgb(${Math.floor(Math.random() * 255)},${Math.floor(
           Math.random() * 255
         )},${Math.floor(Math.random() * 255)})`;
-        dataValue[moment(sensordata.timestamp).format('YYYYMMDD')] = {
-          label: moment(sensordata.timestamp).format('DD/MM/YYYY'),
+        dataValue[moment(sensordata.timestamp).utc().format('YYYYMMDD')] = {
+          label: moment(sensordata.timestamp).utc().format('DD/MM/YYYY'),
           data: [
             {
               x: moment(
-                moment(sensordata.timestamp).format('HH:mm:ss'),
+                moment(sensordata.timestamp).utc().format('HH:mm:ss'),
                 'HH:mm:ss'
-              ),
+              ).add(8, 'hour'),
               y: sensordata.value,
             },
           ],
@@ -65,27 +67,28 @@ const CompareWaterUsage = () => {
     });
 
     secondData.data.map((sensordata, i) => {
-      console.log(sensordata.timestamp);
-      if (dataValue[moment(sensordata.timestamp).format('YYYYMMDD')]) {
-        dataValue[moment(sensordata.timestamp).format('YYYYMMDD')].data.push({
+      if (dataValue[moment(sensordata.timestamp).utc().format('YYYYMMDD')]) {
+        dataValue[
+          moment(sensordata.timestamp).utc().format('YYYYMMDD')
+        ].data.push({
           x: moment(
-            moment(sensordata.timestamp).format('HH:mm:ss'),
+            moment(sensordata.timestamp).utc().format('HH:mm:ss'),
             'HH:mm:ss'
-          ),
+          ).add(8, 'hour'),
           y: sensordata.value,
         });
       } else {
         let color = `rgb(${Math.floor(Math.random() * 255)},${Math.floor(
           Math.random() * 255
         )},${Math.floor(Math.random() * 255)})`;
-        dataValue[moment(sensordata.timestamp).format('YYYYMMDD')] = {
-          label: moment(sensordata.timestamp).format('DD/MM/YYYY'),
+        dataValue[moment(sensordata.timestamp).utc().format('YYYYMMDD')] = {
+          label: moment(sensordata.timestamp).utc().format('DD/MM/YYYY'),
           data: [
             {
               x: moment(
-                moment(sensordata.timestamp).format('HH:mm:ss'),
+                moment(sensordata.timestamp).utc().format('HH:mm:ss'),
                 'HH:mm:ss'
-              ),
+              ).add(8, 'hour'),
               y: sensordata.value,
             },
           ],
@@ -161,7 +164,7 @@ const CompareWaterUsage = () => {
                     type: 'time',
                     time: {
                       unit: 'hour',
-                      tooltipFormat: 'DD MMM YYYY',
+                      tooltipFormat: 'HH:mm:ss',
                     },
                   },
                 },
