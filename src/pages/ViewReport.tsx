@@ -24,7 +24,7 @@ const ViewReport = () => {
 
     axios
       .put(
-        'http://localhost:5000/api/ReportTicket',
+        'http://localhost:5000/api/ReportTicket/MyInfo',
         {
           ...report,
         },
