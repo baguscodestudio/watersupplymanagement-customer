@@ -32,7 +32,7 @@ const Payment = () => {
           const paymentMethodNonce = payload.nonce;
           axios
             .post(
-              'http://localhost:5000/api/Payment/',
+              `${import.meta.env.VITE_REST_URL}/Payment/`,
               {
                 billId: bill?.billId,
                 paymentNonce: paymentMethodNonce,
@@ -60,7 +60,7 @@ const Payment = () => {
 
   const initializeBraintree = () => {
     axios
-      .get('http://localhost:5000/api/Payment/ClientToken', {
+      .get(`${import.meta.env.VITE_REST_URL}/Payment/ClientToken`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
         },

@@ -58,7 +58,7 @@ const PastWaterUsage = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/api/WaterUsage/MyInfo`, {
+      .get(`${import.meta.env.VITE_REST_URL}/WaterUsage/MyInfo`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
         },

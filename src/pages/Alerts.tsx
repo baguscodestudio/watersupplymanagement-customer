@@ -21,7 +21,7 @@ const Alerts = () => {
 
   const fetchAnnouncements = () => {
     axios
-      .get('http://localhost:5000/api/BroadcastAlert', {
+      .get(`${import.meta.env.VITE_REST_URL}/BroadcastAlert`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
         },
@@ -43,7 +43,7 @@ const Alerts = () => {
     event.preventDefault();
     if (search !== '') {
       axios
-        .get('http://localhost:5000/api/BroadcastAlert/Search', {
+        .get(`${import.meta.env.VITE_REST_URL}/BroadcastAlert/Search`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
           },

@@ -19,7 +19,7 @@ const CreateReport = () => {
     } else {
       axios
         .post(
-          'http://localhost:5000/api/ReportTicket',
+          `${import.meta.env.VITE_REST_URL}/ReportTicket`,
           {
             title: title,
             description: desc,

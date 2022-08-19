@@ -24,7 +24,7 @@ const ViewReport = () => {
 
     axios
       .put(
-        'http://localhost:5000/api/ReportTicket/MyInfo',
+        '${import.meta.env.VITE_REST_URL}/ReportTicket/MyInfo',
         {
           ...report,
         },
@@ -45,11 +45,14 @@ const ViewReport = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/api/ReportTicket/MyInfo/${params.id}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-        },
-      })
+      .get(
+        `${import.meta.env.VITE_REST_URL}/ReportTicket/MyInfo/${params.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+        }
+      )
       .then((response) => {
         setReport(response.data);
         setPrevReport(response.data);

@@ -117,7 +117,7 @@ const WaterUsageCurrent = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/api/WaterUsage/MyInfo`, {
+      .get(`${import.meta.env.VITE_REST_URL}/WaterUsage/MyInfo`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
         },
@@ -135,7 +135,7 @@ const WaterUsageCurrent = () => {
       });
     axios
       .get(
-        `http://localhost:5000/api/WaterRate/${moment().year()}/${
+        `${import.meta.env.VITE_REST_URL}/WaterRate/${moment().year()}/${
           moment().month() + 1
         }`,
         {

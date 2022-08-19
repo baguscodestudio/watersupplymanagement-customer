@@ -24,7 +24,7 @@ const Reports = () => {
 
   useEffect(() => {
     axios
-      .get('http://localhost:5000/api/ReportTicket/MyInfo', {
+      .get(`${import.meta.env.VITE_REST_URL}/ReportTicket/MyInfo`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
         },

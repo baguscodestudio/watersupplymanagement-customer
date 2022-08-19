@@ -15,7 +15,7 @@ const ViewBill = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/api/Bill/MyInfo/${params.id}`, {
+      .get(`${import.meta.env.VITE_REST_URL}/Bill/MyInfo/${params.id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
         },

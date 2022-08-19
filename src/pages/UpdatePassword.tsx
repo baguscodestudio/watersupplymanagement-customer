@@ -19,7 +19,7 @@ const UpdatePassword = () => {
     } else {
       axios
         .put(
-          'http://localhost:5000/api/Customer/MyInfo',
+          `${import.meta.env.VITE_REST_URL}/Customer/MyInfo`,
           {
             ...user,
             updatePassword: true,
