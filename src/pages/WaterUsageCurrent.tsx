@@ -95,9 +95,9 @@ const WaterUsageCurrent = () => {
   const getTotal = (date: string) => {
     let total = 0;
     waterUsage.map((waterUsage) => {
-      if (moment(waterUsage.date).format('YYYYMMDD') === date) {
+      if (moment(waterUsage.date).utc().format('YYYYMMDD') === date) {
         waterUsage.data.map((data) => {
-          if (date === moment(data.timestamp).format('YYYYMMDD')) {
+          if (date === moment(data.timestamp).utc().format('YYYYMMDD')) {
             total += data.value;
           }
         });
