@@ -30,7 +30,7 @@ const ViewBills = () => {
 
   useEffect(() => {
     axios
-      .get('${import.meta.env.VITE_REST_URL}/Bill/MyInfo', {
+      .get(`${import.meta.env.VITE_REST_URL}/Bill/MyInfo`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
         },

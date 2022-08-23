@@ -24,7 +24,7 @@ const ViewReport = () => {
 
     axios
       .put(
-        '${import.meta.env.VITE_REST_URL}/ReportTicket/MyInfo',
+        `${import.meta.env.VITE_REST_URL}/ReportTicket/MyInfo`,
         {
           ...report,
         },
