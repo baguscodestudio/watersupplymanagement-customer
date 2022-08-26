@@ -151,21 +151,23 @@ const ViewReport = () => {
                 Back
               </Link>
               {report?.status === 'Active' && (
-                <button
-                  type="button"
-                  onClick={markAsResolved}
-                  className="disabled:bg-gray-200 text-red-800 px-4 py-1 border-2 border-red-600 rounded-lg mt-4 hover:bg-red-200 transition-colors mx-4"
-                >
-                  Mark as Resolved
-                </button>
+                <>
+                  <button
+                    type="button"
+                    onClick={markAsResolved}
+                    className="disabled:bg-gray-200 text-red-800 px-4 py-1 border-2 border-red-600 rounded-lg mt-4 hover:bg-red-200 transition-colors mx-4"
+                  >
+                    Mark as Resolved
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={checkChanges()}
+                    className="disabled:bg-gray-200 px-4 py-1 border-2 border-black rounded-lg mt-4 hover:bg-slate-200 transition-colors mx-4"
+                  >
+                    Update
+                  </button>
+                </>
               )}
-              <button
-                type="submit"
-                disabled={checkChanges()}
-                className="disabled:bg-gray-200 px-4 py-1 border-2 border-black rounded-lg mt-4 hover:bg-slate-200 transition-colors mx-4"
-              >
-                Update
-              </button>
             </div>
           </form>
         </div>
