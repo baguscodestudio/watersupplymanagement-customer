@@ -43,6 +43,29 @@ const ViewReport = () => {
       });
   };
 
+  const markAsResolved = () => {
+    axios
+      .put(
+        `${import.meta.env.VITE_REST_URL}/ReportTicket/MyInfo`,
+        {
+          ...report,
+          status: 'Closed',
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+        }
+      )
+      .then((response) => {
+        toast('Successfully marked report as resolved');
+        navigate('/report');
+      })
+      .catch((err) => {
+        toast.error('An error occured while marking report');
+      });
+  };
+
   useEffect(() => {
     axios
       .get(
@@ -127,6 +150,13 @@ const ViewReport = () => {
               >
                 Back
               </Link>
+              <button
+                type="button"
+                onClick={markAsResolved}
+                className="disabled:bg-gray-200 text-red-800 px-4 py-1 border-2 border-red-600 rounded-lg mt-4 hover:bg-red-200 transition-colors mx-4"
+              >
+                Mark as Resolved
+              </button>
               <button
                 type="submit"
                 disabled={checkChanges()}
